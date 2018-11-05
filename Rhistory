@@ -1,0 +1,28 @@
+install.packages("gmailr")
+library(gmailr)
+use_secret_file('stat463.json')
+setwd("//udrive.win.psu.edu/Users/j/w/jwy124/Desktop/stat463project")
+library(gmailr)
+use_secret_file('stat463.json')
+library(gmailr)
+use_secret_file('stat463.json')
+library(gmailr)
+use_secret_file('stat463.json')
+sender = "psu.forecasting.group.5@gmail.com"
+receiver = "taylor.k.pawlik@gmail.com"
+send_message(mime(
+To = receiver,
+From = sender,
+Subject = "Hi Taylor this is a robot speaking.",
+body = "Hello."))
+use_secret_file('stat463.json')
+install.packages("gmailr")
+library(gmailr)
+use_secret_file('stat463.json')
+sender = "psu.forecasting.group.5@gmail.com"
+receiver = "jyangjayy@live.com"
+send_message(mime(
+To = receiver,
+From = sender,
+Subject = "Hi",
+body = "Hello"))
