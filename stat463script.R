@@ -81,3 +81,40 @@ lazio_selection = select(AR(24), lazio_ts)
 lazio_estimate = estimate(AR(7), lazio_ts)
 check(model = lazio_estimate)
 lazio_prediction = predict(lazio_estimate)
+
+#Predictions using SARIMA models
+
+mobile_selection = select(AR(23), mobile_ts)
+mobile_estimate = estimate(AR(18), mobile_ts)
+check(model = mobile_estimate)
+mobile_prediction = predict(model_mobile, n.ahead = 1, level = 0.95)
+
+desktop_selection = select(AR(5), desktop_ts)
+desktop_estimate = estimate(SARIMA(ar = 1, i = 0, ma = 0, sar = 4, si = 0, sma = 0, s = 7), desktop_ts,
+                            method = "rgmwm")
+check(model = desktop_estimate)
+desktop_prediction = predict(desktop_estimate, n.ahead = 30, level = 0.95)
+
+silvio_selection = select(AR(20), silvio_ts)
+silvio_estimate = estimate(SARIMA(ar = 0, i = 0, ma = 0, sar = 3, si = 0, sma = 1, s = 11), silvio_ts,
+                           method = "rgmwm")
+check(model = silvio_estimate)
+silvio_prediction = predict(silvio_estimate, n.ahead = 30, level = 0.95)
+
+beyonce_selection = select(AR(12), beyonce_ts)
+beyonce_estimate = estimate(SARIMA(ar = 1, i = 0, ma = 0, sar = 2, si = 0, sma = 0, s = 15), beyonce_ts,
+                                    method = "rgmwm")
+check(model = beyonce_estimate)
+beyonce_prediction = predict(beyonce_estimate, n.ahead = 30, level = 0.95)
+
+chomsky_selection = select(AR(17), chomsky_ts)
+chomsky_estimate = estimate(SARIMA(ar = 3, i = 0, ma = 0, sar = 4, si = 0, sma = 0, s = 10), chomsky_ts,
+                            method = "rgmwm")
+check(model = chomsky_estimate)
+chomsky_prediction = predict(chomsky_estimate, n.ahead = 30, level = 0.95)
+
+lazio_selection = select(AR(24), lazio_ts)
+lazio_estimate = estimate(SARIMA(ar = 3, i = 0, ma = 0, sar = 2, si = 0, sma = 0, s = 14), lazio_ts,
+                          method = "rgmwm")
+check(model = lazio_estimate)
+lazio_prediction = predict(lazio_estimate, n.ahead = 30, level = 0.95)
