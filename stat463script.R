@@ -46,7 +46,7 @@ lazio = article_pageviews(article = "SS_Lazio", start = "2018070100", end = "201
 lazio_ts = gts(lazio$views)
 plot(lazio_ts)
 
-thanksgiving = article_pageviews(article = "Thanksgiving", start = "2017100100", end = "2019010100")
+thanksgiving = article_pageviews(article = "Thanksgiving", start = "2017110700", end = "2017113000")
 thanksgiving_ts = gts(thanksgiving$views)
 plot(thanksgiving_ts)
 
@@ -118,3 +118,8 @@ lazio_estimate = estimate(SARIMA(ar = 3, i = 0, ma = 0, sar = 2, si = 0, sma = 0
                           method = "rgmwm")
 check(model = lazio_estimate)
 lazio_prediction = predict(lazio_estimate, n.ahead = 30, level = 0.95)
+
+thanks_estimate = estimate(SARIMA(ar = 0, i = 0, ma = 1, sar = 1, si = 0, sma = 0, s = 22), thanksgiving_ts,
+                          method = "rgmwm")
+check(model = thanks_estimate)
+thanks_prediction = predict(thanks_estimate, n.ahead = 30, level = 0.95)
