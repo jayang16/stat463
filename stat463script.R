@@ -37,42 +37,42 @@ plot(thanksgiving_ts)
 #mobile_selection = select(AR(23), mobile_ts)
 mobile_estimate = estimate(AR(18), mobile_ts)
 check(model = mobile_estimate)
-mobile_prediction = predict(mobile_estimate, n.ahead = 30, level = 0.95)
+mobile_prediction = predict(mobile_estimate, n.ahead = 1, level = 0.95)
 
-#desktop_selection = select(AR(5), desktop_ts)
+#desktop_selection = MAPE(AR(5), desktop_ts)
 desktop_estimate = estimate(SARIMA(ar = 1, i = 0, ma = 0, sar = 4, si = 0, sma = 0, s = 7), desktop_ts,
                             method = "rgmwm")
 check(model = desktop_estimate)
-desktop_prediction = predict(desktop_estimate, n.ahead = 30, level = 0.95)
+desktop_prediction = predict(desktop_estimate, n.ahead = 1, level = 0.95)
 
-#silvio_selection = select(AR(20), silvio_ts)
+#silvio_selection = MAPE(AR(5), silvio_ts)
 silvio_estimate = estimate(SARIMA(ar = 0, i = 0, ma = 0, sar = 3, si = 0, sma = 1, s = 11), silvio_ts,
                            method = "rgmwm")
 check(model = silvio_estimate)
-silvio_prediction = predict(silvio_estimate, n.ahead = 30, level = 0.95)
+silvio_prediction = predict(silvio_estimate, n.ahead = 1, level = 0.95)
 
 #beyonce_selection = select(AR(12), beyonce_ts)
 beyonce_estimate = estimate(SARIMA(ar = 1, i = 0, ma = 0, sar = 2, si = 0, sma = 0, s = 15), beyonce_ts,
                                     method = "rgmwm")
 check(model = beyonce_estimate)
-beyonce_prediction = predict(beyonce_estimate, n.ahead = 30, level = 0.95)
+beyonce_prediction = predict(beyonce_estimate, n.ahead = 1, level = 0.95)
 
 #chomsky_selection = select(AR(17), chomsky_ts)
 chomsky_estimate = estimate(SARIMA(ar = 3, i = 0, ma = 0, sar = 4, si = 0, sma = 0, s = 10), chomsky_ts,
                             method = "rgmwm")
 check(model = chomsky_estimate)
-chomsky_prediction = predict(chomsky_estimate, n.ahead = 30, level = 0.95)
+chomsky_prediction = predict(chomsky_estimate, n.ahead = 1, level = 0.95)
 
 #lazio_selection = select(AR(24), lazio_ts)
 lazio_estimate = estimate(SARIMA(ar = 3, i = 0, ma = 0, sar = 2, si = 0, sma = 0, s = 9), lazio_ts,
                           method = "rgmwm")
 check(model = lazio_estimate)
-lazio_prediction = predict(lazio_estimate, n.ahead = 30, level = 0.95)
+lazio_prediction = predict(lazio_estimate, n.ahead = 1, level = 0.95)
 
-thanks_estimate = estimate(SARIMA(ar = 0, i = 0, ma = 1, sar = 1, si = 0, sma = 0, s = 22), thanksgiving_ts,
+thanks_estimate = estimate(SARIMA(ar = 0, i = 0, ma = 1, sar = 1, si = 0, sma = 0, s = 21), thanksgiving_ts,
                           method = "rgmwm")
 check(model = thanks_estimate)
-thanks_prediction = predict(thanks_estimate, n.ahead = 30, level = 0.95)
+thanks_prediction = predict(thanks_estimate, n.ahead = 1, level = 0.95)
 
 #Compiling predictions into list
 mobile_object = list(mobile_pred = as.numeric(mobile_prediction$pred), 
@@ -87,8 +87,10 @@ chomsky_object = list(chomsky_pred = as.numeric(chomsky_prediction$pred),
                       chomsky_ci = as.numeric(chomsky_prediction$CI0.95))
 lazio_object = list(lazio_pred = as.numeric(lazio_prediction$pred), 
                     lazio_ci = as.numeric(lazio_prediction$CI0.95))
+lazio_object$lazio_ci[1] = max(0,lazio_object$lazio_ci[1])
 thanks_object = list(thanks_pred = as.numeric(thanks_prediction$pred), 
                      thanks_ci = as.numeric(thanks_prediction$CI0.95))
+thanks_object$thanks_ci[1] = max(0,thanks_object$thanks_ci[1])
 
 prediction = list(mobile = mobile_object, desktop = desktop_object, 
                   silvio = silvio_object, beyonce = beyonce_object, 
