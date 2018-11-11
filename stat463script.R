@@ -35,42 +35,60 @@ plot(thanksgiving_ts)
 
 #Predictions using AR and SARIMA models
 #mobile_selection = select(AR(23), mobile_ts)
-mobile_estimate = estimate(AR(18), mobile_ts)
+#mobile_estimate = estimate(AR(18), mobile_ts)
+mobile_estimate = estimate(SARIMA(ar = 18, i = 0, ma = 11, sar = 2, si = 1, sma = 5, s = 13), mobile_ts,
+                            method = "mle")
+#AIC = 7961.88
 check(model = mobile_estimate)
 mobile_prediction = predict(mobile_estimate, n.ahead = 1, level = 0.95)
 
 #desktop_selection = MAPE(AR(5), desktop_ts)
-desktop_estimate = estimate(SARIMA(ar = 1, i = 0, ma = 0, sar = 4, si = 0, sma = 0, s = 7), desktop_ts,
-                            method = "rgmwm")
+#desktop_estimate = estimate(SARIMA(ar = 1, i = 0, ma = 0, sar = 4, si = 0, sma = 0, s = 7), desktop_ts,
+#                            method = "rgmwm")
+desktop_estimate = estimate(SARIMA(ar = 2, i = 1, ma = 7, sar = 0, si = 1, sma = 8, s = 7), desktop_ts,
+                            method = "mle")
+#AIC = 7838.44
 check(model = desktop_estimate)
 desktop_prediction = predict(desktop_estimate, n.ahead = 1, level = 0.95)
 
 #silvio_selection = MAPE(AR(5), silvio_ts)
-silvio_estimate = estimate(SARIMA(ar = 0, i = 0, ma = 0, sar = 3, si = 0, sma = 1, s = 11), silvio_ts,
-                           method = "rgmwm")
+#silvio_estimate = estimate(SARIMA(ar = 0, i = 0, ma = 0, sar = 3, si = 0, sma = 1, s = 11), silvio_ts,
+#                           method = "rgmwm")
+silvio_estimate = estimate(SARIMA(ar = 8, i = 1, ma = 2, sar = 4, si = 1, sma = 1, s = 14), silvio_ts,
+                           method = "mle")
+#AIC = 1215.27
 check(model = silvio_estimate)
 silvio_prediction = predict(silvio_estimate, n.ahead = 1, level = 0.95)
 
 #beyonce_selection = select(AR(12), beyonce_ts)
-beyonce_estimate = estimate(SARIMA(ar = 1, i = 0, ma = 0, sar = 2, si = 0, sma = 0, s = 15), beyonce_ts,
-                                    method = "rgmwm")
+#beyonce_estimate = estimate(SARIMA(ar = 1, i = 0, ma = 0, sar = 2, si = 0, sma = 0, s = 15), beyonce_ts,
+#                            method = "rgmwm")
+beyonce_estimate = estimate(SARIMA(ar = 2, i = 0, ma = 0, sar = 7, si = 1, sma = 9, s = 6), beyonce_ts,
+                            method = "mle")
+#AIC = 633.66
 check(model = beyonce_estimate)
 beyonce_prediction = predict(beyonce_estimate, n.ahead = 1, level = 0.95)
 
 #chomsky_selection = select(AR(17), chomsky_ts)
-chomsky_estimate = estimate(SARIMA(ar = 3, i = 0, ma = 0, sar = 4, si = 0, sma = 0, s = 10), chomsky_ts,
-                            method = "rgmwm")
+#chomsky_estimate = estimate(SARIMA(ar = 3, i = 0, ma = 0, sar = 4, si = 0, sma = 0, s = 10), chomsky_ts,
+#                            method = "rgmwm")
+chomsky_estimate = estimate(SARIMA(ar = 2, i = 1, ma = 10, sar = 2, si = 1, sma = 6, s = 7), chomsky_ts,
+                            method = "mle")
+#AIC = 8133.81
 check(model = chomsky_estimate)
 chomsky_prediction = predict(chomsky_estimate, n.ahead = 1, level = 0.95)
 
 #lazio_selection = select(AR(24), lazio_ts)
-lazio_estimate = estimate(SARIMA(ar = 3, i = 0, ma = 0, sar = 2, si = 0, sma = 0, s = 9), lazio_ts,
-                          method = "rgmwm")
+#lazio_estimate = estimate(SARIMA(ar = 3, i = 0, ma = 0, sar = 2, si = 0, sma = 0, s = 9), lazio_ts,
+#                          method = "rgmwm")
+lazio_estimate = estimate(SARIMA(ar = 6, i = 0, ma = 4, sar = 1, si = 1, sma = 4, s = 10), lazio_ts,
+                          method = "mle")
+#AIC = 813.55
 check(model = lazio_estimate)
 lazio_prediction = predict(lazio_estimate, n.ahead = 1, level = 0.95)
 
 thanks_estimate = estimate(SARIMA(ar = 0, i = 0, ma = 1, sar = 1, si = 0, sma = 0, s = 21), thanksgiving_ts,
-                          method = "rgmwm")
+                           method = "rgmwm")
 check(model = thanks_estimate)
 thanks_prediction = predict(thanks_estimate, n.ahead = 1, level = 0.95)
 
