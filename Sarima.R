@@ -38,7 +38,7 @@ thanksgiving = article_pageviews(article = "Thanksgiving",
 thanksgiving_ts = gts(thanksgiving$views)
 
 #Set xts to whichever time series you want to select from
-xts = lazio_ts
+xts = mobile_ts
 
 #Set parameters to current best model; OR all zeros to start from scratch
 ar = 0
@@ -70,11 +70,11 @@ while (T) {
   s_d = rpois(1, 2) * sample(c(-1, 1), 1)
   #The magic: if the model it's testing throws an error, it backs out gracefully and tries a new one.
   tryCatch({
-    cat(c(ar + ar_d, i_n, ma + ma_d, sar + sar_d, si_n, sma + sma_d, s + s_d, '\n'))
+    #cat(c(ar + ar_d, i_n, ma + ma_d, sar + sar_d, si_n, sma + sma_d, s + s_d, '\n'))
     current_AIC = estimate(SARIMA(ar + ar_d, i_n, ma + ma_d, sar + sar_d, si_n, sma + sma_d, s + s_d),
                            xts,
                            method = "mle")$mod$aic
-    cat('no error\n')
+    #cat('no error\n')
     if (current_AIC < best_aic) {
       best_aic = current_AIC
       ar = ar + ar_d
@@ -84,7 +84,7 @@ while (T) {
       si = si_n
       sma = sma + sma_d
       s = s + s_d
-      cat(c(best_aic, '\n'))
+      #cat(c(best_aic, '\n'))
       cat(c(ar, i, ma, sar, si, sma, s, best_aic, '\n'))
     }
   }, error = function(err) {
