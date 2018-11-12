@@ -41,13 +41,13 @@ thanksgiving_ts = gts(thanksgiving$views)
 xts = mobile_ts
 
 #Set parameters to current best model; OR all zeros to start from scratch
-ar = 0
+ar = 4
 i = 0
-ma = 0
-sar = 0
+ma = 1
+sar = 3
 si = 0
-sma = 0
-s = 0
+sma = 7
+s = 7
 best_aic = estimate(SARIMA(ar, i, ma, sar, si, sma, s), xts, method = "mle")$mod$aic
 
 #Stupid loop that runs forever, must be manually terminated when you're bored of running R scripts.
@@ -62,26 +62,24 @@ best_aic = estimate(SARIMA(ar, i, ma, sar, si, sma, s), xts, method = "mle")$mod
 while (T) {
   #Perturbs each parameter by a random integer, tests to see if it's found a better model.
   ar_d = rpois(1, 2) * sample(c(-1, 1), 1)
-  i_n = sample(c(0, 1), 1)
   ma_d = rpois(1, 2) * sample(c(-1, 1), 1)
   sar_d = rpois(1, 2) * sample(c(-1, 1), 1)
-  si_n = sample(c(0, 1), 1)
   sma_d = rpois(1, 2) * sample(c(-1, 1), 1)
   s_d = rpois(1, 2) * sample(c(-1, 1), 1)
   #The magic: if the model it's testing throws an error, it backs out gracefully and tries a new one.
   tryCatch({
     #cat(c(ar + ar_d, i_n, ma + ma_d, sar + sar_d, si_n, sma + sma_d, s + s_d, '\n'))
-    current_AIC = estimate(SARIMA(ar + ar_d, i_n, ma + ma_d, sar + sar_d, si_n, sma + sma_d, s + s_d),
+    current_AIC = estimate(SARIMA(ar + ar_d, 0, ma + ma_d, sar + sar_d, 0, sma + sma_d, s + s_d),
                            xts,
                            method = "mle")$mod$aic
     #cat('no error\n')
     if (current_AIC < best_aic) {
       best_aic = current_AIC
       ar = ar + ar_d
-      i = i_n
+      i = 0
       ma = ma + ma_d
       sar = sar + sar_d
-      si = si_n
+      si = 0
       sma = sma + sma_d
       s = s + s_d
       #cat(c(best_aic, '\n'))
