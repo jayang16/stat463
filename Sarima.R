@@ -41,13 +41,13 @@ thanksgiving_ts = gts(thanksgiving$views)
 xts = mobile_ts
 
 #Set parameters to current best model; OR all zeros to start from scratch
-ar = 4
+ar = 0
 i = 0
-ma = 1
-sar = 3
+ma = 0
+sar = 0
 si = 0
-sma = 7
-s = 7
+sma = 0
+s = 0
 best_aic = estimate(SARIMA(ar, i, ma, sar, si, sma, s), xts, method = "mle")$mod$aic
 
 #Stupid loop that runs forever, must be manually terminated when you're bored of running R scripts.
@@ -66,9 +66,12 @@ while (T) {
   sar_d = rpois(1, 2) * sample(c(-1, 1), 1)
   sma_d = rpois(1, 2) * sample(c(-1, 1), 1)
   s_d = rpois(1, 2) * sample(c(-1, 1), 1)
+  while (s + s_d < 0) {
+    s_d = rpois(1, 2) * sample(c(-1, 1), 1)
+  }
   #The magic: if the model it's testing throws an error, it backs out gracefully and tries a new one.
   tryCatch({
-    #cat(c(ar + ar_d, i_n, ma + ma_d, sar + sar_d, si_n, sma + sma_d, s + s_d, '\n'))
+    #cat(c(ar + ar_d, 0, ma + ma_d, sar + sar_d, 0, sma + sma_d, s + s_d, '\n'))
     current_AIC = estimate(SARIMA(ar + ar_d, 0, ma + ma_d, sar + sar_d, 0, sma + sma_d, s + s_d),
                            xts,
                            method = "mle")$mod$aic

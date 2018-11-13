@@ -36,7 +36,7 @@ plot(thanksgiving_ts)
 #Predictions using AR and SARIMA models
 #mobile_selection = select(AR(23), mobile_ts)
 #mobile_estimate = estimate(AR(18), mobile_ts)
-mobile_estimate = estimate(SARIMA(ar = 10, i = 0, ma = 7, sar = 2, si = 0, sma = 10, s = 1), mobile_ts,
+mobile_estimate = estimate(SARIMA(ar = 8, i = 0, ma = 10, sar = 3, si = 0, sma = 1, s = 3), mobile_ts,
                             method = "mle")
 #AIC = 8290.47
 check(model = mobile_estimate)
@@ -54,9 +54,9 @@ desktop_prediction = predict(desktop_estimate, n.ahead = 1, level = 0.95)
 #silvio_selection = MAPE(AR(5), silvio_ts)
 #silvio_estimate = estimate(SARIMA(ar = 0, i = 0, ma = 0, sar = 3, si = 0, sma = 1, s = 11), silvio_ts,
 #                           method = "rgmwm")
-silvio_estimate = estimate(SARIMA(ar = 0, i = 0, ma = 1, sar = 5, si = 0, sma = 6, s = 2), silvio_ts,
+silvio_estimate = estimate(SARIMA(ar = 0, i = 0, ma = 1, sar = 2, si = 0, sma = 6, s = 2), silvio_ts,
                            method = "mle")
-#AIC = 1412.54
+#AIC = 1409.47
 check(model = silvio_estimate)
 silvio_prediction = predict(silvio_estimate, n.ahead = 1, level = 0.95)
 
